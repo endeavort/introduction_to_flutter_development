@@ -110,20 +110,23 @@ class GridViewPageState extends State<GridViewPage> {
 
         // グリッド内の各アイテムを生成するビルダー
         itemBuilder: (context, index) {
-          final _gridItemColor =
+          final gridItemColor =
               Color((math.Random(index).nextDouble() * 0x00FFFFFF).toInt())
                   .withOpacity(1);
+          final gridItemBrightness = gridItemColor.computeLuminance();
           return Stack(
             children: [
               Container(
-                color: _gridItemColor,
+                color: gridItemColor,
                 child: Center(
                   // テキストを中央に配置
                   child: Text(
                     index.toString(),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 42, // フォントサイズ
-                      color: Colors.white, // 色
+                      color: gridItemBrightness > 0.5
+                          ? Colors.black
+                          : Colors.white, // 色
                     ),
                   ),
                 ),
@@ -132,14 +135,16 @@ class GridViewPageState extends State<GridViewPage> {
                   right: 10,
                   bottom: 10,
                   child: Text(
-                    _gridItemColor
+                    gridItemColor
                         .toString()
                         .toUpperCase()
                         .substring(6, 16)
                         .replaceAll('0X', '#'),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
-                      color: Colors.white,
+                      color: gridItemBrightness > 0.5
+                          ? Colors.black
+                          : Colors.white,
                     ),
                   ))
             ],
