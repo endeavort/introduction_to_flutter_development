@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'phase2/grid_view_page.dart';
+import 'package:introduction_to_flutter_development/phase2/sliver_app_bar_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
       ),
 
       // ビルドするアプリを選択
-      home: const GridViewPage(),
+      home: const SliverAppBarPage(),
     );
   }
 }
