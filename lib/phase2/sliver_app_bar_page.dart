@@ -43,14 +43,17 @@ class SliverAppBarPageState extends State<SliverAppBarPage> {
                     padding: const EdgeInsets.only(
                         left: 20.0, right: 20.0, bottom: 20.0),
                     child: Column(
+                      // 左揃え（Rowの場合は上揃え）
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         const SizedBox(
                           height: 8,
                         ),
                         Row(
+                          // 中央揃え
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
+                            // 利用可能な空間を最大限に使用
                             const Expanded(
                               child: Text(
                                 'Sept. 29 2020',
@@ -68,6 +71,7 @@ class SliverAppBarPageState extends State<SliverAppBarPage> {
                         const Text(
                           '記事タイトル記事タイトル記事タイトル記事タイトル記事タイトル記事タイトル',
                         ),
+                        // 横線
                         const Divider(
                           height: 30,
                           thickness: 1,
