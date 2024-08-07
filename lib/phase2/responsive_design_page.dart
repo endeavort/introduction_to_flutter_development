@@ -25,6 +25,8 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+    final isPortrait = height > width;
+
     return Center(
       // 子ウィジェットに対して制約
       child: ConstrainedBox(
@@ -50,10 +52,11 @@ class _Body extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            FlutterLogo(
-              size: height * 0.3,
-            ),
-            const Spacer(),
+            if (isPortrait)
+              FlutterLogo(
+                size: height * 0.3,
+              ),
+            if (isPortrait) const Spacer(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
               child: Text(
