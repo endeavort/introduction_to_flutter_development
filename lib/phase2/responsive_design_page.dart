@@ -25,13 +25,11 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    final isPortrait = height > width;
     return Center(
       child: Column(
         children: <Widget>[
-          const SizedBox(
-            height: 60,
-          ),
+          // 利用可能な空きスペースを動的に占有
+          const Spacer(),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 50),
             child: Text(
@@ -45,15 +43,11 @@ class _Body extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 60,
+          const Spacer(),
+          FlutterLogo(
+            size: height * 0.3,
           ),
-          const FlutterLogo(
-            size: 240,
-          ),
-          const SizedBox(
-            height: 60,
-          ),
+          const Spacer(),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 50),
             child: Text(
@@ -66,39 +60,35 @@ class _Body extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 60,
-          ),
+          const Spacer(),
           SizedBox(
             height: 42,
             width: 300,
+            // ボタンウィジェットを作成
             child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    textStyle: const TextStyle(
-                      color: Colors.white,
-                    ),
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    )),
-                onPressed: () {},
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 15,
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  )),
+              onPressed: () {},
+              child: const Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 15,
+                ),
+                child: Text(
+                  'get started',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                  child: Text(
-                    'get started',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                )),
+                ),
+              ),
+            ),
           ),
-          const SizedBox(
-            height: 60,
-          ),
+          const Spacer(),
         ],
       ),
     );
