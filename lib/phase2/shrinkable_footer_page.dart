@@ -129,18 +129,30 @@ class _IconTextItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 0.25 * (deviceWidth - 32),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Stack(
         children: [
-          Icon(
-            icon,
-            color: const Color(0xFF442C2E),
-            size: 24,
+          // 特定の位置に配置
+          Align(
+            alignment: Alignment.topCenter, // 上部中央に配置
+            child: Icon(
+              icon,
+              color: const Color(0xFF442C2E),
+              size: 24,
+            ),
           ),
-          Text(
-            title,
-            style: const TextStyle(fontSize: 16),
-          )
+          // アニメーション付きで透明度を変更する
+          AnimatedOpacity(
+            opacity: isHiding ? 0 : 1,
+            duration: const Duration(milliseconds: 120),
+            curve: Curves.easeInQuart,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                title,
+                style: const TextStyle(fontSize: 16),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -154,36 +166,44 @@ class _BottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return AnimatedContainer(
+    return AnimatedOpacity(
+      opacity: isHiding ? 0.5 : 1.0, // 透明度を変更
       duration: const Duration(milliseconds: 200),
-      height: isHiding ? 32 : 60,
-      color: const Color(0xFFFEEAE6),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _IconTextItem(
-              deviceWidth: width,
-              icon: Icons.home,
-              title: 'Home',
-            ),
-            _IconTextItem(
-              deviceWidth: width,
-              icon: Icons.star,
-              title: 'Favorite',
-            ),
-            _IconTextItem(
-              deviceWidth: width,
-              icon: Icons.favorite,
-              title: 'Like',
-            ),
-            _IconTextItem(
-              deviceWidth: width,
-              icon: Icons.settings,
-              title: 'Menu',
-            ),
-          ],
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        height: isHiding ? 32 : 60,
+        color: const Color(0xFFFEEAE6),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _IconTextItem(
+                deviceWidth: width,
+                isHiding: isHiding,
+                icon: Icons.home,
+                title: 'Home',
+              ),
+              _IconTextItem(
+                deviceWidth: width,
+                isHiding: isHiding,
+                icon: Icons.star,
+                title: 'Favorite',
+              ),
+              _IconTextItem(
+                deviceWidth: width,
+                isHiding: isHiding,
+                icon: Icons.favorite,
+                title: 'Like',
+              ),
+              _IconTextItem(
+                deviceWidth: width,
+                isHiding: isHiding,
+                icon: Icons.settings,
+                title: 'Menu',
+              ),
+            ],
+          ),
         ),
       ),
     );
