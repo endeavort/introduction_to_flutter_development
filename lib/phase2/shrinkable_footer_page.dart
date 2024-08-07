@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:introduction_to_flutter_development/top_page.dart';
 
 class ShrinkableFooterPage extends StatefulWidget {
   const ShrinkableFooterPage({
@@ -117,43 +118,47 @@ class _IconTextItem extends StatelessWidget {
   final bool isHiding;
   final IconData icon;
   final String title;
+  final VoidCallback? onTap; // onTapコールバックを追加
 
   const _IconTextItem({
     required this.deviceWidth,
     required this.isHiding,
     required this.icon,
     required this.title,
+    this.onTap, // onTapコールバックを受け取る
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 0.25 * (deviceWidth - 32),
-      child: Stack(
-        children: [
-          // 特定の位置に配置
-          Align(
-            alignment: Alignment.topCenter, // 上部中央に配置
-            child: Icon(
-              icon,
-              color: const Color(0xFF442C2E),
-              size: 24,
-            ),
-          ),
-          // アニメーション付きで透明度を変更する
-          AnimatedOpacity(
-            opacity: isHiding ? 0 : 1,
-            duration: const Duration(milliseconds: 120),
-            curve: Curves.easeInQuart,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                title,
-                style: const TextStyle(fontSize: 16),
+    // ジェスチャー（タップ、スワイプ、ドラッグ、ダブルタップなど）を検出
+    return GestureDetector(
+      onTap: onTap,
+      child: SizedBox(
+        width: 0.25 * (deviceWidth - 32),
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.topCenter,
+              child: Icon(
+                icon,
+                color: const Color(0xFF442C2E),
+                size: 24,
               ),
             ),
-          ),
-        ],
+            AnimatedOpacity(
+              opacity: isHiding ? 0 : 1,
+              duration: const Duration(milliseconds: 120),
+              curve: Curves.easeInQuart,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  title,
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -163,6 +168,7 @@ class _BottomNavigationBar extends StatelessWidget {
   const _BottomNavigationBar({required this.isHiding});
 
   final bool isHiding;
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -183,6 +189,16 @@ class _BottomNavigationBar extends StatelessWidget {
                 isHiding: isHiding,
                 icon: Icons.home,
                 title: 'Home',
+                onTap: () {
+                  // 新しいページに遷移する処理を開始
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    // 新しいページとしてTopPageウィジェットを指定
+                    MaterialPageRoute(builder: (context) => const TopPage()),
+                    // すべての既存のルートを削除(戻るボタンを押しても元の画面に戻らない)
+                    (route) => false,
+                  );
+                },
               ),
               _IconTextItem(
                 deviceWidth: width,

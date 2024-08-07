@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'phase2/responsive_design_page.dart';
 import 'phase2/container_properties_page.dart';
 import 'phase2/grid_view_page.dart';
 import 'phase2/shrinkable_footer_page.dart';
@@ -39,7 +40,13 @@ class TopPage extends StatelessWidget {
             context,
             'Shrinkable Footer',
             const ShrinkableFooterPage(),
-            Icons.vertical_align_bottom,
+            Icons.expand_less,
+          ),
+          _buildPageTile(
+            context,
+            'Responsive Design',
+            const ResponsiveDesignPage(),
+            Icons.devices,
           ),
           const SizedBox(height: 16), // フェーズ間のスペース
 
