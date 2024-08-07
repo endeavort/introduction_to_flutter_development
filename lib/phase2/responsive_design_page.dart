@@ -26,70 +26,79 @@ class _Body extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Center(
-      child: Column(
-        children: <Widget>[
-          // 利用可能な空きスペースを動的に占有
-          const Spacer(),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 50),
-            child: Text(
-              "Flutter is Google's UI toolkit for building beautiful, natively compiled",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                height: 1.85,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          const Spacer(),
-          FlutterLogo(
-            size: height * 0.3,
-          ),
-          const Spacer(),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 50),
-            child: Text(
-              'Fast Development Paint your app to life in milliseconds with Stateful Hot Reload. Use a rich set of ',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                height: 1.85,
-              ),
-            ),
-          ),
-          const Spacer(),
-          SizedBox(
-            height: 42,
-            width: 300,
-            // ボタンウィジェットを作成
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.secondary,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
-                  )),
-              onPressed: () {},
-              child: const Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 15,
+      // 子ウィジェットに対して制約
+      child: ConstrainedBox(
+        // 子ウィジェットの最大幅を650ピクセルに制限
+        constraints: const BoxConstraints(
+          maxWidth: 650,
+        ),
+        child: Column(
+          children: <Widget>[
+            // 利用可能な空きスペースを動的に占有
+            const Spacer(),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 50),
+              child: Text(
+                "Flutter is Google's UI toolkit for building beautiful, natively compiled",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  height: 1.85,
+                  fontWeight: FontWeight.bold,
                 ),
-                child: Text(
-                  'get started',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+              ),
+            ),
+            const Spacer(),
+            FlutterLogo(
+              size: height * 0.3,
+            ),
+            const Spacer(),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 50),
+              child: Text(
+                'Fast Development Paint your app to life in milliseconds with Stateful Hot Reload. Use a rich set of ',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  height: 1.85,
+                ),
+              ),
+            ),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              child: SizedBox(
+                width: double.infinity,
+                // ボタンウィジェットを作成
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      )),
+                  onPressed: () {},
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 15,
+                    ),
+                    child: Text(
+                      'get started',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          const Spacer(),
-        ],
+            const Spacer(),
+          ],
+        ),
       ),
     );
   }
