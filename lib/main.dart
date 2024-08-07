@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:introduction_to_flutter_development/phase2/sliver_app_bar_page.dart';
+import 'top_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,12 +13,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-        useMaterial3: true,
+        primarySwatch: Colors.blue,
       ),
-
-      // ビルドするアプリを選択
-      home: const SliverAppBarPage(),
+      home: const TopPage(),
     );
   }
 }
