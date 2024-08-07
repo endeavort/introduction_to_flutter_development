@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class ShrinkableFooterPage extends StatefulWidget {
   const ShrinkableFooterPage({
@@ -9,10 +10,40 @@ class ShrinkableFooterPage extends StatefulWidget {
 }
 
 class ShrinkableFooterPageState extends State<ShrinkableFooterPage> {
+  final _scrollController = ScrollController();
+  bool isHiding = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _listenScroll();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(() {});
+    super.dispose();
+  }
+
+  void _listenScroll() {
+    _scrollController.addListener(() {
+      // スクロールが上向き（ユーザーが下にスクロールしている）かどうかをチェック
+      if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        isHiding = false;
+      } else {
+        isHiding = true;
+      }
+      // 状態を更新してUIを再構築
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
+        controller: _scrollController,
         children: [
           Container(
             padding: const EdgeInsets.only(left: 16.0, right: 50),
@@ -65,7 +96,7 @@ class ShrinkableFooterPageState extends State<ShrinkableFooterPage> {
         ],
       ),
       bottomNavigationBar: _BottomNavigationBar(
-        isHiding: false,
+        isHiding: isHiding,
       ),
     );
   }
